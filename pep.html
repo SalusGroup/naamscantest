@@ -2,16 +2,76 @@
 <html lang="NL">
 
 <head>
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-129737799-2"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <!-- JQUERY SHOULD BE THE FIRST TO LOAD -->
+  <script src="lib/jquery/jquery.min.js"></script>
 
-  gtag('config', 'UA-129737799-2');
-</script>
+  <!-- BEGIN -->
+  <!-- GOOGLE ANALYTICS -->
+  <!--
+      Script below adds the following scripttag to the page body:
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129737799-2"></script>
+      and activates Google Analiytics on the page.
+      This function is only executed when the user has enabled analytics in his cookiepreferences
+  -->
+  <script>
+    function activateGoogleAnalytics() {
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = "https://www.googletagmanager.com/gtag/js?id=UA-129737799-2";
+      script.async = true;
+      $("body").append(script);
 
+
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'UA-129737799-2');
+    }
+  </script>
+  <!-- GOOGLE ANALYTICS -->
+  <!-- END -->
+
+  <!-- BEGIN -->
+  <!-- I-HAVE-COOKIES scripts -->
+  <link href="css/cookies.css" rel="stylesheet">
+  <script type="text/javascript" src="js/jquery.ihavecookies.js"></script>
+  <script type="text/javascript">
+    var options = {
+      title: '&#x1F36A; Accept Cookies & Privacy Policy?',
+      message: 'There are no cookies used on this site, but if there were this message could be customised to provide more details. Click the <strong>accept</strong> button below to see the optional callback in action...',
+      delay: 600,
+      expires: 1,
+      link: '#privacy',
+      onAccept: function () {
+        var myPreferences = $.fn.ihavecookies.cookie();
+        console.log('Yay! The following preferences were saved...');
+        console.log(myPreferences);
+        if (myPreferences.includes('analytics')) {
+          activateGoogleAnalytics();
+        }
+      },
+      uncheckBoxes: false,
+      acceptBtnLabel: 'Accept Cookies',
+      moreInfoLabel: 'More information',
+      cookieTypesTitle: 'Select which cookies you want to accept',
+      fixedCookieTypeLabel: 'Essential',
+      fixedCookieTypeDesc: 'These are essential for the website to work correctly.'
+    }
+    $(document).ready(function () {
+      $('body').ihavecookies(options);
+      if ($.fn.ihavecookies.preference('marketing') === true) {
+        console.log('This should run because marketing is accepted.');
+      }
+      if ($.fn.ihavecookies.preference('analytics') === true) {
+        activateGoogleAnalytics();
+      }
+      $('#ihavecookiesBtn').on('click', function () {
+        $('body').ihavecookies(options, 'reinit');
+      });
+    });
+  </script>
+  <!-- I-HAVE-COOKIES scripts -->
+  <!-- END -->
 
   <meta charset="utf-8">
   <title>NaamScan.nl</title>
@@ -65,7 +125,7 @@
       <!-- end container -->
     </div>
     <!-- end topbar -->
-  
+
     <header id="header" class="header"></header>
     <!-- end header -->
 
@@ -107,7 +167,7 @@
       <div class="message text-center">
         <h2 class="big-title">Komen uw relaties voor op <span>PEP</span> lijsten?</h2>
         <p class="small-title">Start direct met scannen</p>
-        <a class="button large" href="prijzen.html">Start nu</a> 
+        <a class="button large" href="prijzen.html">Start nu</a>
       </div>
       <!-- end message -->
     </div>
@@ -126,7 +186,7 @@
           </blockquote>
           <div class="clearfix"></div>
           In het geval dat de cliënt of de UBO een PEP is, dienen verscherpte cliëntenonderzoeksmaatregelen te worden getroffen, zoals passende maatregelen om de bron van het vermogen en van de middelen vast te stellen en toestemming van het hoger leidinggevend personeel voor het aangaan of voortzetten van deze zakelijke relatie of het verrichten van deze transactie. (Bron: AFM)
-        </ul> 
+        </ul>
         </p>
       </div>
       <!-- end content -->
@@ -142,7 +202,6 @@
     <div class="dmtop">Scroll to Top</div>
 
   <!-- JavaScript Libraries -->
-  <script src="lib/jquery/jquery.min.js"></script>
   <script src="lib/bootstrap/js/bootstrap.min.js"></script>
   <script src="lib/php-mail-form/validate.js"></script>
   <script src="lib/prettyphoto/js/prettyphoto.js"></script>

@@ -2,16 +2,76 @@
 <html lang="NL">
 
 <head>
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-129737799-2"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <!-- JQUERY SHOULD BE THE FIRST TO LOAD -->
+  <script src="lib/jquery/jquery.min.js"></script>
 
-  gtag('config', 'UA-129737799-2');
-</script>
+  <!-- BEGIN -->
+  <!-- GOOGLE ANALYTICS -->
+  <!--
+      Script below adds the following scripttag to the page body:
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129737799-2"></script>
+      and activates Google Analiytics on the page.
+      This function is only executed when the user has enabled analytics in his cookiepreferences
+  -->
+  <script>
+    function activateGoogleAnalytics() {
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = "https://www.googletagmanager.com/gtag/js?id=UA-129737799-2";
+      script.async = true;
+      $("body").append(script);
 
+
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'UA-129737799-2');
+    }
+  </script>
+  <!-- GOOGLE ANALYTICS -->
+  <!-- END -->
+
+  <!-- BEGIN -->
+  <!-- I-HAVE-COOKIES scripts -->
+  <link href="css/cookies.css" rel="stylesheet">
+  <script type="text/javascript" src="js/jquery.ihavecookies.js"></script>
+  <script type="text/javascript">
+    var options = {
+      title: '&#x1F36A; Accept Cookies & Privacy Policy?',
+      message: 'There are no cookies used on this site, but if there were this message could be customised to provide more details. Click the <strong>accept</strong> button below to see the optional callback in action...',
+      delay: 600,
+      expires: 1,
+      link: '#privacy',
+      onAccept: function () {
+        var myPreferences = $.fn.ihavecookies.cookie();
+        console.log('Yay! The following preferences were saved...');
+        console.log(myPreferences);
+        if (myPreferences.includes('analytics')) {
+          activateGoogleAnalytics();
+        }
+      },
+      uncheckBoxes: false,
+      acceptBtnLabel: 'Accept Cookies',
+      moreInfoLabel: 'More information',
+      cookieTypesTitle: 'Select which cookies you want to accept',
+      fixedCookieTypeLabel: 'Essential',
+      fixedCookieTypeDesc: 'These are essential for the website to work correctly.'
+    }
+    $(document).ready(function () {
+      $('body').ihavecookies(options);
+      if ($.fn.ihavecookies.preference('marketing') === true) {
+        console.log('This should run because marketing is accepted.');
+      }
+      if ($.fn.ihavecookies.preference('analytics') === true) {
+        activateGoogleAnalytics();
+      }
+      $('#ihavecookiesBtn').on('click', function () {
+        $('body').ihavecookies(options, 'reinit');
+      });
+    });
+  </script>
+  <!-- I-HAVE-COOKIES scripts -->
+  <!-- END -->
 
   <meta charset="utf-8">
   <title>NaamScan.nl</title>
@@ -50,122 +110,128 @@
 </head>
 
 <body>
-    <div class="topbar clearfix">
-      <div class="container">
-        <div class="col-lg-12 text-right">
-          <div class="social_buttons">
-            <a href="#" data-toggle="tooltip" data-placement="bottom" title="LinkedIn"><i class="fa fa-linkedin"></i></a>
-            <!-- <a href="#" data-toggle="tooltip" data-placement="bottom" title="Twitter"><i class="fa fa-twitter"></i></a>
+  <div class="topbar clearfix">
+    <div class="container">
+      <div class="col-lg-12 text-right">
+        <div class="social_buttons">
+          <a href="#" data-toggle="tooltip" data-placement="bottom" title="LinkedIn"><i class="fa fa-linkedin"></i></a>
+          <!-- <a href="#" data-toggle="tooltip" data-placement="bottom" title="Twitter"><i class="fa fa-twitter"></i></a>
             <a href="#" data-toggle="tooltip" data-placement="bottom" title="Google+"><i class="fa fa-google-plus"></i></a>
             <a href="#" data-toggle="tooltip" data-placement="bottom" title="Dribbble"><i class="fa fa-dribbble"></i></a>
             <a href="#" data-toggle="tooltip" data-placement="bottom" title="RSS"><i class="fa fa-rss"></i></a> -->
-          </div>
         </div>
       </div>
-      <!-- end container -->
     </div>
-    <!-- end topbar -->
-  
-    <header id="header" class="header"></header>
-    <!-- end header -->
+    <!-- end container -->
+  </div>
+  <!-- end topbar -->
 
-    <section id="intros1">
-        <div class="container">
-          <div class="ror">
-            <div class="col-md-8 col-md-offset-2">
-              <h1>Uitgebreide OFAC-, VN-, EU-sanctielijsten en PEP-gegevens</h1>
-              <p></p>
-            </div>
-          </div>
-        </div>
-      </section>
+  <header id="header" class="header"></header>
+  <!-- end header -->
 
-    <section class="section">
-      <div class="container">
-        <div class="col-lg-4 col-md-4 col-sm-4">
-          <div class="servicebox text-center">
-            <div class="service-icon">
-              <div class="dm-icon-effect-1" data-effect="slide-left">
-                <a href="#" class=""> <i class="active dm-icon fa fa-bars fa-3x"></i> </a>
-              </div>
-              <div class="servicetitle">
-                <h4>Sanctielijsten</h4>
-                <hr>
-              </div>
-              <p>Real-time monitoring van vele sanctielijsten zoals de OFAC, VN, EU en Nederland.</p>
-            </div>
-            <!-- service-icon -->
-          </div>
-          <!-- servicebox -->
+  <section id="intros1">
+    <div class="container">
+      <div class="ror">
+        <div class="col-md-8 col-md-offset-2">
+          <h1>Uitgebreide OFAC-, VN-, EU-sanctielijsten en PEP-gegevens</h1>
+          <p></p>
         </div>
-        <!-- large-4 -->
-  
-        <div class="col-lg-4 col-md-4 col-sm-4">
-          <div class="servicebox text-center">
-            <div class="service-icon">
-              <div class="dm-icon-effect-1" data-effect="slide-bottom">
-                <a href="#" class=""> <i class="active dm-icon fa fa-laptop fa-3x"></i> </a>
-              </div>
-              <div class="servicetitle">
-                <h4>Watchlijsten</h4>
-                <hr>
-              </div>
-              <p>Tientallen watchlists, zoals de FBI en Interpol, zijn verwerkt in onze innovatieve oplossing om het jou zo makkelijk mogelijk te maken.</p>
-            </div>
-            <!-- service-icon -->
-          </div>
-          <!-- servicebox -->
-        </div>
-        <!-- large-4 -->
-  
-        <div class="col-lg-4 col-md-4 col-sm-4">
-          <div class="servicebox text-center">
-            <div class="service-icon">
-              <div class="dm-icon-effect-1" data-effect="slide-right">
-                <a href="#" class=""> <i class="active dm-icon fa fa-book fa-3x"></i> </a>
-              </div>
-              <div class="servicetitle">
-                <h4>Direct toegankelijk</h4>
-                <hr>
-              </div>
-              <p>Direct toegang tot onze database. Of je nu 1 of 1000 screenings wilt uitvoeren, wij staan klaar voor het MKB.</p>
-            </div>
-            <!-- service-icon -->
-          </div>
-          <!-- servicebox -->
-        </div>
-        <!-- large-4 -->
       </div>
-      <!-- end container -->
-    </section>
-    <!-- end section -->
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="col-lg-4 col-md-4 col-sm-4">
+        <div class="servicebox text-center">
+          <div class="service-icon">
+            <div class="dm-icon-effect-1" data-effect="slide-left">
+              <a href="#" class=""> <i class="active dm-icon fa fa-bars fa-3x"></i> </a>
+            </div>
+            <div class="servicetitle">
+              <h4>Sanctielijsten</h4>
+              <hr>
+            </div>
+            <p>Real-time monitoring van vele sanctielijsten zoals de OFAC, VN, EU en Nederland.</p>
+          </div>
+          <!-- service-icon -->
+        </div>
+        <!-- servicebox -->
+      </div>
+      <!-- large-4 -->
+
+      <div class="col-lg-4 col-md-4 col-sm-4">
+        <div class="servicebox text-center">
+          <div class="service-icon">
+            <div class="dm-icon-effect-1" data-effect="slide-bottom">
+              <a href="#" class=""> <i class="active dm-icon fa fa-laptop fa-3x"></i> </a>
+            </div>
+            <div class="servicetitle">
+              <h4>Watchlijsten</h4>
+              <hr>
+            </div>
+            <p>Tientallen watchlists, zoals de FBI en Interpol, zijn verwerkt in onze innovatieve oplossing om het jou
+              zo makkelijk mogelijk te maken.</p>
+          </div>
+          <!-- service-icon -->
+        </div>
+        <!-- servicebox -->
+      </div>
+      <!-- large-4 -->
+
+      <div class="col-lg-4 col-md-4 col-sm-4">
+        <div class="servicebox text-center">
+          <div class="service-icon">
+            <div class="dm-icon-effect-1" data-effect="slide-right">
+              <a href="#" class=""> <i class="active dm-icon fa fa-book fa-3x"></i> </a>
+            </div>
+            <div class="servicetitle">
+              <h4>Direct toegankelijk</h4>
+              <hr>
+            </div>
+            <p>Direct toegang tot onze database. Of je nu 1 of 1000 screenings wilt uitvoeren, wij staan klaar voor het
+              MKB.</p>
+          </div>
+          <!-- service-icon -->
+        </div>
+        <!-- servicebox -->
+      </div>
+      <!-- large-4 -->
+    </div>
+    <!-- end container -->
+  </section>
+  <!-- end section -->
 
   <section class="section1">
     <div class="container clearfix">
       <div class="content col-lg-6 col-md-6 col-sm-12 clearfix">
         <h2>Sancties</h2>
-        <p>We zijn gespecialiseerd in het screenen op Sancties, PEPs en slecht nieuws vermeldingen. Met onze innovatieve oplossingen staan we klaar om het MKB te helpen bij internationaal zakendoen.</p>
+        <p>We zijn gespecialiseerd in het screenen op Sancties, PEPs en slecht nieuws vermeldingen. Met onze
+          innovatieve oplossingen staan we klaar om het MKB te helpen bij internationaal zakendoen.</p>
         <div class="clearfix"></div>
         <blockquote>
           <p>Denkt u dat Compliance duur is? Probeer eens Non-Compliance</p>
           <small>Paul McNulty<cite title="Source Title"></cite></small>
         </blockquote>
         <div class="clearfix"></div>
-        <p>Onze innovatieve oplossingen zijn zo gemaakt dat ze voor iedere MKB’er makkelijk te implementeren zijn. Screening is mogelijk via onze website of via onze API. </p>
+        <p>Onze innovatieve oplossingen zijn zo gemaakt dat ze voor iedere MKB’er makkelijk te implementeren zijn.
+          Screening is mogelijk via onze website of via onze API. </p>
         <p>De 4 V’s van NaamScan:
           <ul>
-          <li>Voldoe aan de verplicht sanctiewetgeving</li>
-          <li>Voorkom financiële- en/of reputatieschade</li>
-          <li>Versnel en automatiseer jouw klantacceptatie</li>
-          <li>Verras wetgevers en andere partijen met uitstekende klantacceptaties</li>
-        </ul>          
+            <li>Voldoe aan de verplicht sanctiewetgeving</li>
+            <li>Voorkom financiële- en/of reputatieschade</li>
+            <li>Versnel en automatiseer jouw klantacceptatie</li>
+            <li>Verras wetgevers en andere partijen met uitstekende klantacceptaties</li>
+          </ul>
+        </ul>
+          </ul>
         </p>
         <!-- <blockquote class="pull-right">
           <p>Handelaren in goederen die contante betalingen van €10.000 of meer ontvangen, worden als instelling gezien onder de WWFT. Dat zijn niet alleen handelaren in boten of trucks, maar bijvoorbeeld ook keukenzaken</p>
           <small>Silver de Bruijn<cite title="Source Title"></cite></small>
         </blockquote> -->
         <div class="clearfix"></div>
-        
+
       </div>
       <!-- end content -->
     </div>
@@ -178,7 +244,7 @@
       <div class="message text-center">
         <h2 class="big-title">Komen uw relaties voor op <span>sanctie</span> lijsten?</h2>
         <p class="small-title">Sreening op hoogwaardig niveau. Snel, veilig en accuraat.</p>
-        <a class="button large" href="prijzen.html">Start nu</a> 
+        <a class="button large" href="prijzen.html">Start nu</a>
       </div>
       <!-- end message -->
     </div>
@@ -190,7 +256,7 @@
   <!-- <section class="section1">
     <div class="container clearfix">
       <div class="content col-lg-12 col-md-12 col-sm-12 clearfix"> -->
-        <!-- <div class="clearfix"></div>
+  <!-- <div class="clearfix"></div>
         <div class="col-lg-3 col-md-3 col-sm-3">
           <div class="servicebox text-center">
             <div class="service-icon">
@@ -205,9 +271,9 @@
             </div>
           </div>
         </div> -->
-        <!-- large-3 -->
+  <!-- large-3 -->
 
-        <!-- <div class="col-lg-3 col-md-3 col-sm-3">
+  <!-- <div class="col-lg-3 col-md-3 col-sm-3">
           <div class="servicebox text-center">
             <div class="service-icon">
               <div class="dm-icon-effect-1" data-effect="slide-bottom">
@@ -251,7 +317,7 @@
           </div>
         </div> -->
 
-        <!-- <div class="clearfix"></div>
+  <!-- <div class="clearfix"></div>
         <div class="divider"></div>
 
         <div class="tabbable servicetab tabs-left">
@@ -268,7 +334,7 @@
                   <h2>Doet u internationaal zaken? Hou dan rekening met de sanctiewet</h2>
                   <h6>Iedere onderneming in Nederland valt onder de Sanctiewet 1977. U dus ook.</h6>
                   <p> Doet u zaken in het buitenland? Dan is het verplicht om uit te zoeken of er beperkende maatregelen gelden tegen dat land, bedrijf en/of persoon.</p>
-                  <p> Sancties zijn maatregelen om de internationale vrede en veiligheid te bewaren. De Sanctiewet 1977 is bedoeld om bijvoorbeeld ongewenste handel, witwassen en terrorisme te bestrijden. Nederland voert met deze wet internationale sanctieregels uit van vooral de Verenigde Naties en de Europese Unie. 
+                  <p> Sancties zijn maatregelen om de internationale vrede en veiligheid te bewaren. De Sanctiewet 1977 is bedoeld om bijvoorbeeld ongewenste handel, witwassen en terrorisme te bestrijden. Nederland voert met deze wet internationale sanctieregels uit van vooral de Verenigde Naties en de Europese Unie.
                     Omdat iedereen onder de Sanctiewet valt, dient ook u te voldoen aan de sanctiewet.</p>
                   <div class="clearfix"></div>
                   <blockquote>
@@ -276,7 +342,7 @@
                     <small>Paul McNulty<cite title="Source Title"></cite></small>
                   </blockquote>
                   <div class="clearfix"></div>
-                  <p>De Sanctiewet is op iedereen van toepassing. Bepaalde sectoren, met name de sectoren die onder de WWFT vallen, dienen extra aandacht te vestigen op de Sanctiewet. Ook zgn. Sanctielanden brengen meer risico met zich mee. Voorbeelden van sanctielanden zijn Rusland, 
+                  <p>De Sanctiewet is op iedereen van toepassing. Bepaalde sectoren, met name de sectoren die onder de WWFT vallen, dienen extra aandacht te vestigen op de Sanctiewet. Ook zgn. Sanctielanden brengen meer risico met zich mee. Voorbeelden van sanctielanden zijn Rusland,
                     Oekraine, Wit-Rusland, verschillende Afrikaanse landen en Iran (dit lijstje is niet limitatief. Neem contact op voor meer informatie over sanctielanden)
                   </p>
                   <blockquote class="pull-right">
@@ -367,13 +433,12 @@
   </section> -->
 
   <footer id="footer" class="footer">
-      <!-- end copyrights -->
-    </footer>
-    <!-- end footer -->
-    <div class="dmtop">Scroll to Top</div>
+    <!-- end copyrights -->
+  </footer>
+  <!-- end footer -->
+  <div class="dmtop">Scroll to Top</div>
 
   <!-- JavaScript Libraries -->
-  <script src="lib/jquery/jquery.min.js"></script>
   <script src="lib/bootstrap/js/bootstrap.min.js"></script>
   <script src="lib/php-mail-form/validate.js"></script>
   <script src="lib/prettyphoto/js/prettyphoto.js"></script>
@@ -404,7 +469,6 @@
     })
     );
     $("#footer").load("footer.html");
-</script>
-
+  </script>
 </body>
 </html>
