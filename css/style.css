@@ -508,8 +508,9 @@ body.nobg .section1 {
   margin: 0;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 400px) {
   #intro {
+    background: url(../img/16small.jpg) no-repeat;
     background-attachment: scroll;
   }
 
